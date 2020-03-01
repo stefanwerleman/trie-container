@@ -4,7 +4,7 @@
 ## Methods
 
 Operation |
-----------|
+:----------:|
 is_empty()|
 add()     |
 add(String)|
