@@ -6,21 +6,12 @@
 Operation      | Best | Worst |
 ----------     |:------:|:-------:|
 is_empty()     |  O(1)  |   O(1)  |
-
-add()          | | |
-
-add(String)    | | |
-
-add_all(Array) | | |
-
-contains()     | | |
-
-get(String)    | | |
-
-print()        | | |
-
-remove(String) | | |
-
-size()         | | |
-
-to_array()     | | |
+add()          |        |         |
+add(String)    |        |         |
+add_all(Array) |        |         |
+contains()     |        |         |
+get(String)    |        |         |
+print()        |        |         |
+remove(String) |        |         |
+size()         |        |         |
+to_array()     |        |         |
