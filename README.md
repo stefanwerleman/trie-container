@@ -3,15 +3,15 @@
 
 ## Methods
 
-Operation |
-:----------:|
-is_empty()|
-add()     |
-add(String)|
-add_all(Array)|
-contains()|
-get(String)|
-print()|
-remove(String)|
-size()    |
-to_array()|
+Operation      |
+----------     |
+is_empty()     |
+add()          |
+add(String)    |
+add_all(Array) |
+contains()     |
+get(String)    |
+print()        |
+remove(String) |
+size()         |
+to_array()     |
