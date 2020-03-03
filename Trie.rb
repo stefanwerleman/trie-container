@@ -34,14 +34,44 @@ class Trie
       return @size;
    end
 
-   # inserts string whether or not it already exists
+   # inserts string whether or not it already exists.
+   # Case insensitive: store lowercase words
    def add(string)
+      # Verify the validity of inputs
+      if string == nil
+         return false;
+      end
 
+      string = string.downcase();
+      aux = @root;
+
+      string.each_char { |c|
+         index = c.ord - 'a'.ord;
+
+         if aux.children[index] == nil
+            aux.children[index] = TrieNode.new();
+         end
+
+         aux = aux.children[index];
+      }
+
+      aux.count += 1;
+      return true;
    end
 
    # stores the list of strings into the Trie
    def add_all(list)
+      # Verify the validity of inputs
+      if list == nil || list.length() < 1
+         return false
+      end
 
+      # calls the method that adds a single string
+      list.each { |string|
+         add(string);
+      }
+
+      return true;
    end
 
    # returns the string if it exists in the Trie, otherwise nil
