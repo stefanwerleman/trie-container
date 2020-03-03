@@ -26,7 +26,7 @@ class Trie
    # true -> if trie has no strings
    # false -> if it contains at least 1 string
    def is_empty
-      return (@size > 0) ? true : false;
+      return (@size > 0) ? false : true;
    end
 
    # returns the number strings currently in the trie
@@ -94,7 +94,13 @@ class Trie
    # Prints all the strings and their frequency that are in the Trie
    def print
 
+      if is_empty()
+         puts("(Trie is empty)");
+      end
+
+
    end
+
 
    # Returns an array representation of the Trie
    # returns an empty array if Trie is empty
@@ -104,3 +110,7 @@ class Trie
       end
    end
 end
+
+t = Trie.new();
+
+t.print();
