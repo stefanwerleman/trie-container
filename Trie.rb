@@ -42,6 +42,8 @@ class Trie
          return false;
       end
 
+      @size += 1;
+
       string = string.downcase();
       aux = @root;
 
@@ -93,14 +95,32 @@ class Trie
 
    # Prints all the strings and their frequency that are in the Trie
    def print
-
       if is_empty()
          puts("(Trie is empty)");
       end
 
+      buffer = "";
 
+      print_helper(@root, buffer);
    end
 
+   # recursive method to traverse
+   def print_helper(root, buffer)
+      if root == nil
+         return;
+      end
+
+      if (root.count > 0)
+         puts("%s (%d)" % [buffer, root.count]);
+      end
+
+      for i in 0..25
+         if (root.children[i] != nil)
+            buffer += (i + 'a'.ord).chr;
+            print_helper(root.children[i], buffer);
+         end
+      end
+   end
 
    # Returns an array representation of the Trie
    # returns an empty array if Trie is empty
@@ -110,7 +130,3 @@ class Trie
       end
    end
 end
-
-t = Trie.new();
-
-t.print();
