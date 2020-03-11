@@ -78,7 +78,9 @@ class Trie
 
    # returns the string if it exists in the Trie, otherwise nil
    def get(string)
+      string = string.downcase();
 
+      return (contains(string)) ? string : nil;
    end
 
    # removes and returns the string if it exist
@@ -90,7 +92,29 @@ class Trie
    # true -> if trie contains the string
    # false -> if it does not exist in the trie
    def contains(string)
+      if string == nil
+         return false;
+      end
 
+      string = string.downcase();
+
+      aux = @root;
+
+      string.each_char { |c|
+         index = c.ord - 'a'.ord;
+
+         if aux.children[index] == nil
+            return false;
+         end
+
+         aux = aux.children[index];
+      }
+
+      if aux.count > 0
+         return true;
+      else
+         return false;
+      end
    end
 
    # Prints all the strings and their frequency that are in the Trie
@@ -110,7 +134,7 @@ class Trie
          return;
       end
 
-      if (root.count > 0)
+      if root.count > 0
          puts("%s (%d)" % [buffer, root.count]);
       end
 
@@ -127,6 +151,20 @@ class Trie
    def to_array
       if is_empty
          return Array.new();
+      end
+
+      buffer = "";
+
+      return to_array_helper(@root, buffer, 0);
+   end
+
+   def to_array_helper(root, buffer, k)
+      if root == nil
+         return nil;
+      end
+
+      if root.count > 0
+
       end
    end
 end
