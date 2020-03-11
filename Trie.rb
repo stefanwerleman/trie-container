@@ -92,7 +92,49 @@ class Trie
          return nil;
       end
 
+      string = string.downcase();
 
+      prevSize = @size;
+      @root = remove_helper(@root, string, 0);
+
+      if @root == nil || prevSize != @size
+         return string;
+      else
+         return nil;
+      end
+   end
+
+   def remove_helper(root, string, k)
+      if k >= string.length()
+         if root.count > 1
+            root.count -= 1;
+         elsif root.childCount > 0
+            root.count = 0;
+         else
+            root = nil;
+         end
+
+         @size -= 1;
+         return root;
+      end
+
+      index = string[k].ord - 'a'.ord;
+
+      if root.children[index] != nil
+         root.children[index] = remove_helper(root.children[index], string, k + 1);
+      else
+         return root;
+      end
+
+      if root.children[index] == nil
+         root.childCount -= 1;
+      end
+
+      if root.count > 0 || root.childCount > 0
+         return root;
+      end
+
+      return nil;
    end
 
    # true -> if trie contains the string
@@ -188,15 +230,3 @@ class Trie
       return array;
    end
 end
-
-t = Trie.new();
-
-t.add("Stefan");
-t.add("Werleman");
-t.add("Mariel");
-t.add("Torres");
-t.add("Monica");
-t.add("Harger");
-array = t.to_array();
-
-puts(array[1]);
