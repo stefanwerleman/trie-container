@@ -6,10 +6,11 @@
 
 # Node class that holds the path to each letter in the alphabet
 class TrieNode
-   attr_accessor :count, :children;
+   attr_accessor :count, :children, :childCount;
 
    def initialize
       @count = 0;
+      @childCount = 0;
       @children = Array.new(26);
    end
 end
@@ -52,6 +53,7 @@ class Trie
 
          if aux.children[index] == nil
             aux.children[index] = TrieNode.new();
+            aux.childCount += 1;
          end
 
          aux = aux.children[index];
@@ -86,6 +88,10 @@ class Trie
    # removes and returns the string if it exist
    # otherwise returns nil
    def remove(string)
+      if string == nil
+         return nil;
+      end
+
 
    end
 
@@ -121,15 +127,16 @@ class Trie
    def print
       if is_empty()
          puts("(Trie is empty)");
+         return;
       end
 
       buffer = "";
 
-      print_helper(@root, buffer);
+      print_helper(@root, buffer, 0);
    end
 
    # recursive method to traverse
-   def print_helper(root, buffer)
+   def print_helper(root, buffer, k)
       if root == nil
          return;
       end
@@ -138,15 +145,17 @@ class Trie
          puts("%s (%d)" % [buffer, root.count]);
       end
 
+      buffer += "";
+
       for i in 0..25
          if (root.children[i] != nil)
-            buffer += (i + 'a'.ord).chr;
-            print_helper(root.children[i], buffer);
+            buffer[k] = (i + 'a'.ord).chr;
+            print_helper(root.children[i], buffer, k + 1);
          end
       end
    end
 
-   # Returns an array representation of the Trie
+   # Returns an array representation of the Trie in alphabetical order
    # returns an empty array if Trie is empty
    def to_array
       if is_empty
@@ -155,16 +164,39 @@ class Trie
 
       buffer = "";
 
-      return to_array_helper(@root, buffer, 0);
+      return to_array_helper(@root, buffer, Array.new(), 0);
    end
 
-   def to_array_helper(root, buffer, k)
+   def to_array_helper(root, buffer, array, k)
       if root == nil
          return nil;
       end
 
       if root.count > 0
-
+         array.insert(array.length, buffer);
       end
+
+      buffer += "";
+
+      for i in 0..25
+         if (root.children[i] != nil)
+            buffer[k] = (i + 'a'.ord).chr;
+            to_array_helper(root.children[i], buffer, array, k + 1);
+         end
+      end
+
+      return array;
    end
 end
+
+t = Trie.new();
+
+t.add("Stefan");
+t.add("Werleman");
+t.add("Mariel");
+t.add("Torres");
+t.add("Monica");
+t.add("Harger");
+array = t.to_array();
+
+puts(array[1]);
